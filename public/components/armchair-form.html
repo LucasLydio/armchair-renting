@@ -1,0 +1,54 @@
+<form id="armchair-form">
+  <div class="row" style="justify-content: space-between; margin-bottom: 10px">
+    <div>
+      <div class="muted" style="font-size: 12px">Cadastro</div>
+      <div id="form-title" style="font-size: 16px; font-weight: 600">Cadastrar poltrona</div>
+    </div>
+    <button class="btn btn--ghost" id="btn-cancel" type="button" style="display: none">Cancelar</button>
+  </div>
+
+  <div class="field">
+    <label for="name">Nome da poltrona</label>
+    <input class="input" id="name" name="name" placeholder="Ex: Poltrona A" required />
+  </div>
+
+  <div class="field">
+    <label for="location">Localização (endereço completo)</label>
+    <textarea class="input" id="location" name="location" rows="3" placeholder="Rua, número, bairro, cidade" required></textarea>
+  </div>
+
+  <div class="row">
+    <div class="field">
+      <label for="allocation_date">Data de alocação</label>
+      <input class="input" id="allocation_date" name="allocation_date" type="date" required />
+    </div>
+    <div class="field">
+      <label for="rental_days">Qtd. de dias</label>
+      <input class="input" id="rental_days" name="rental_days" type="number" min="1" step="1" required />
+    </div>
+  </div>
+
+  <div class="field" id="field-add-days" style="display: none">
+    <label for="add_days">Adicionar mais dias (opcional)</label>
+    <input class="input" id="add_days" name="add_days" type="number" min="1" step="1" placeholder="Ex: 3" />
+  </div>
+
+  <div class="row">
+    <div class="field">
+      <label for="status">Status</label>
+      <select class="select" id="status" name="status" required>
+        <option value="Disponível">Disponível</option>
+        <option value="Locada">Locada</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>Data de devolução (auto)</label>
+      <div class="input" style="display: grid; place-items: center; padding: 10px 12px">
+        <span id="return_date_preview">—</span>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn btn--primary" id="btn-submit" type="submit">Cadastrar</button>
+</form>
+

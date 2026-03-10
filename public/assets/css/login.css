@@ -1,0 +1,28 @@
+.login {
+  width: 100%;
+  max-width: 420px;
+}
+
+.login__brand {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.login__brand img {
+  width: 36px;
+  height: 36px;
+}
+
+.login h1 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.login p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+

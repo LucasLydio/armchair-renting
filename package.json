@@ -1,0 +1,17 @@
+{
+  "name": "armchair-renting",
+  "version": "1.0.0",
+  "private": true,
+  "type": "commonjs",
+  "main": "netlify/functions/login.js",
+  "scripts": {
+    "dev": "npx netlify dev",
+    "lint": "node -c netlify/functions/login.js"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.75.0",
+    "dotenv": "^17.2.3",
+    "jsonwebtoken": "^9.0.2"
+  }
+}
+

@@ -1,0 +1,32 @@
+<div>
+  <div class="row" style="justify-content: space-between; margin-bottom: 10px">
+    <div>
+      <div class="muted" style="font-size: 12px">Listagem</div>
+      <div style="font-size: 16px; font-weight: 600">Poltronas cadastradas</div>
+    </div>
+  </div>
+
+  <form id="search-form" class="toolbar">
+    <input class="input" id="search-name" placeholder="Buscar por nome..." />
+    <button class="btn" type="submit">Buscar</button>
+    <button class="btn btn--ghost" id="btn-clear" type="button">Limpar</button>
+  </form>
+
+  <div style="overflow: auto">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Localização</th>
+          <th>Alocação</th>
+          <th>Dias</th>
+          <th>Devolução</th>
+          <th>Status</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody id="armchairs-tbody"></tbody>
+    </table>
+  </div>
+</div>
+

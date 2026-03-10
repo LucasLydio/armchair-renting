@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Painel • Armchair Renting</title>
+    <link rel="stylesheet" href="assets/css/reset.css" />
+    <link rel="stylesheet" href="assets/css/global.css" />
+    <link rel="stylesheet" href="assets/css/components.css" />
+    <link rel="stylesheet" href="assets/css/dashboard.css" />
+  </head>
+  <body>
+    <div id="alert-root"></div>
+    <header id="header-root" data-component="header"></header>
+
+    <main class="container">
+      <div class="grid">
+        <section class="card" id="form-root" data-component="armchair-form"></section>
+        <section class="card" id="table-root" data-component="armchair-table"></section>
+      </div>
+    </main>
+
+    <div id="modal-root" data-component="confirm-modal"></div>
+
+    <script type="module" src="assets/js/dashboard.js"></script>
+  </body>
+</html>
+
