@@ -17,7 +17,7 @@ export function showAlert(message, { variant = 'danger', timeoutMs = 3500 } = {}
   const root = document.querySelector('#alert-root');
   if (!root) return;
 
-  const klass = variant === 'ok' ? 'alert alert--ok' : 'alert alert--danger';
+  const klass = variant === 'ok' ? 'alert alert-success' : 'alert alert-danger';
   root.innerHTML = `<div class="${klass}">${message}</div>`;
   if (timeoutMs) setTimeout(() => (root.innerHTML = ''), timeoutMs);
 }

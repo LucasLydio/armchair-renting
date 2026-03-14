@@ -12,8 +12,9 @@
 }
 
 .btn--primary {
-  background: rgba(124, 58, 237, 0.35);
-  border-color: rgba(124, 58, 237, 0.55);
+  width: 100%;
+  background: rgba(124, 58, 237, 0.35) !important; 
+  border-color: rgba(124, 58, 237, 0.55) !important;
 }
 
 .btn--danger {
@@ -42,7 +43,7 @@
   padding: 10px 12px;
   border-radius: 10px;
   border: 1px solid var(--card-border);
-  background: rgba(0, 0, 0, 0.25);
+  background: rgba(0, 0, 0, 0.25) !important;
   color: var(--text);
   outline: none;
 }

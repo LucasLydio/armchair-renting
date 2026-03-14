@@ -1,7 +1,7 @@
 import { qs } from './utils/dom.js';
 import { computeReturnDate, validateArmchairForm } from './validators.js';
 
-export function initArmchairForm({ onSubmit, onCancel } = {}) {
+export function initArmchairForm({ onSubmit, onCancel, onHide } = {}) {
   let editingId = null;
 
   function setFormMode(mode) {
@@ -70,6 +70,11 @@ export function initArmchairForm({ onSubmit, onCancel } = {}) {
     onCancel?.();
   });
 
+  qs('#btn-hide-form')?.addEventListener('click', () => {
+    clear();
+    onHide?.();
+  });
+
   ['#allocation_date', '#rental_days'].forEach((sel) => {
     qs(sel)?.addEventListener('input', updatePreview);
   });
@@ -88,4 +93,3 @@ export function initArmchairForm({ onSubmit, onCancel } = {}) {
     getEditingId: () => editingId,
   };
 }
-

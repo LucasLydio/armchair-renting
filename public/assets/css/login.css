@@ -1,12 +1,20 @@
 .login {
+  display: flex;
   width: 100%;
-  max-width: 420px;
+  max-width: 720px;
+  min-width: 350px !important;
+  align-self: center;
+  @media (max-width: 700px) {
+    min-width: inherit;
+    width: inherit;
+  }
 }
 
 .login__brand {
   display: flex;
   gap: 10px;
   align-items: center;
+  justify-content: center;
   margin-bottom: 14px;
 }
 

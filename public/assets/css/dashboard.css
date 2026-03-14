@@ -2,7 +2,7 @@
   position: sticky;
   top: 0;
   backdrop-filter: blur(10px);
-  background: rgba(11, 16, 32, 0.55);
+  background: rgba(11, 16, 32, 0.829);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
@@ -31,9 +31,24 @@
   font-size: 16px;
 }
 
+.main-dashboard {
+  display: flex;
+  padding: .7rem;
+  align-items: center;
+  justify-content: center;
+
+  .actions {
+    width: 100%;
+    max-width: 1100px;
+  }
+}
+
+
 .table {
   width: 100%;
+  border-radius: .7rem;
   border-collapse: collapse;
+  background: transparent !important;
 }
 
 .table th,
@@ -41,12 +56,12 @@
   padding: 10px 8px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   vertical-align: top;
+  color: white !important;
 }
 
 .table th {
   text-align: left;
   font-size: 12px;
-  color: var(--muted);
   font-weight: 600;
 }
 
@@ -71,7 +86,7 @@
 .modal-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.55);
+  background: rgba(123, 122, 122, 0.519);
   display: none;
   place-items: center;
   padding: 20px;
@@ -80,6 +95,7 @@
 .modal {
   width: 100%;
   max-width: 420px;
+  z-index: 30;
 }
 
 .modal__title {
@@ -95,5 +111,24 @@
 
 .modal-backdrop[data-open="true"] {
   display: grid;
+}
+
+.is-hidden {
+  display: none !important;
+}
+
+/* Desktop: table visible, list hidden */
+#list-root {
+  display: none;
+}
+
+/* Mobile: list visible, table hidden */
+@media (max-width: 700px) {
+  #table-root {
+    display: none;
+  }
+  #list-root {
+    display: block;
+  }
 }
 

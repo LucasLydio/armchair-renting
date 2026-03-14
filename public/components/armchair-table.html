@@ -1,19 +1,24 @@
-<div>
-  <div class="row" style="justify-content: space-between; margin-bottom: 10px">
+<div class="dashboard">
+  <div class="flex-column" style="justify-content: space-between; margin-bottom: 10px">
     <div>
       <div class="muted" style="font-size: 12px">Listagem</div>
-      <div style="font-size: 16px; font-weight: 600">Poltronas cadastradas</div>
+      <p class="text-white">Poltronas cadastradas</p>
+    </div>
+    <div class="actions">
+      <button class="btn btn-dark" id="btn-open-form-table" type="button">
+        <i class="bi bi-plus-circle"></i> Cadastrar Poltrona
+      </button>
     </div>
   </div>
 
-  <form id="search-form" class="toolbar">
-    <input class="input" id="search-name" placeholder="Buscar por nome..." />
-    <button class="btn" type="submit">Buscar</button>
-    <button class="btn btn--ghost" id="btn-clear" type="button">Limpar</button>
+  <form id="search-form-table" class="toolbar">
+    <input class="input" id="search-name-table" placeholder="Buscar por nome..." />
+    <button class="btn btn-dark" type="submit">Buscar</button>
+    <button class="btn btn-dark" id="btn-clear-table" type="button">Limpar</button>
   </form>
 
   <div style="overflow: auto">
-    <table class="table">
+    <table class="table table-dark table-responsive rounded-1">
       <thead>
         <tr>
           <th>Nome</th>
@@ -25,8 +30,33 @@
           <th>Ações</th>
         </tr>
       </thead>
-      <tbody id="armchairs-tbody"></tbody>
+      <tbody id="armchairs-tbody-table"></tbody>
     </table>
+  </div>
+
+  <div
+    id="pagination-table"
+    class="d-flex justify-content-between align-items-center mt-3 flex-wrap gap-2"
+  >
+    <div id="pagination-info-table" class="text-secondary small">—</div>
+
+    <div class="d-flex align-items-center gap-2">
+      <label class="text-secondary small mb-0" for="page-size-table">Por página</label>
+      <select
+        id="page-size-table"
+        class="form-select form-select-sm bg-dark text-white border-secondary"
+        style="width: auto"
+      >
+        <option value="5">5</option>
+        <option value="10">10</option>
+        <option value="15">15</option>
+      </select>
+
+      <div class="btn-group" role="group" aria-label="Paginação">
+        <button class="btn btn-outline-light btn-sm" id="page-prev-table" type="button">Anterior</button>
+        <button class="btn btn-outline-light btn-sm" id="page-next-table" type="button">Próxima</button>
+      </div>
+    </div>
   </div>
 </div>
 

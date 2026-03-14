@@ -1,29 +1,38 @@
-import { qs } from './utils/dom.js';
-
 function statusBadge(status) {
   if (status === 'Disponível') return `<span class="badge badge--ok">Disponível</span>`;
   if (status === 'Atrasada') return `<span class="badge badge--warn">Atrasada</span>`;
   return `<span class="badge badge--muted">Locada</span>`;
 }
 
-export function getSearchName() {
-  return qs('#search-name')?.value || '';
+export function getSearchName(inputId) {
+  return document.getElementById(inputId)?.value || '';
 }
 
-export function initSearchToolbar({ onSearch, onClear } = {}) {
-  qs('#search-form')?.addEventListener('submit', (e) => {
+export function setSearchName(inputId, value) {
+  const el = document.getElementById(inputId);
+  if (el) el.value = value;
+}
+
+export function initSearchToolbar({ formId, inputId, clearId, onSearch, onClear } = {}) {
+  const form = document.getElementById(formId);
+  const input = document.getElementById(inputId);
+  const clear = document.getElementById(clearId);
+
+  form?.addEventListener('submit', (e) => {
     e.preventDefault();
-    onSearch?.(getSearchName());
+    onSearch?.(input?.value || '');
   });
 
-  qs('#btn-clear')?.addEventListener('click', () => {
-    qs('#search-name').value = '';
+  clear?.addEventListener('click', () => {
+    if (input) input.value = '';
     onClear?.();
   });
 }
 
-export function renderArmchairsTable(rows, { onEdit, onDelete } = {}) {
-  const tbody = qs('#armchairs-tbody');
+export function renderArmchairsTable(rows, { tbodyId, onEdit, onDelete } = {}) {
+  const tbody = document.getElementById(tbodyId);
+  if (!tbody) return;
+
   tbody.innerHTML =
     rows?.length
       ? rows
@@ -38,8 +47,12 @@ export function renderArmchairsTable(rows, { onEdit, onDelete } = {}) {
           <td>${statusBadge(r.status)}</td>
           <td class="table__actions">
             <div class="actions">
-              <button class="btn btn--ghost" data-action="edit" type="button">Editar</button>
-              <button class="btn btn--danger" data-action="delete" type="button">Excluir</button>
+              <button class="btn btn--ghost" data-action="edit" type="button">
+                <i class="bi bi-pencil-square text-success"></i>
+              </button>
+              <button class="btn btn--danger" data-action="delete" type="button">
+                <i class="bi bi-trash3 text-danger"></i>
+              </button>
             </div>
           </td>
         </tr>
