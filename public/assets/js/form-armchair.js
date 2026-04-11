@@ -6,7 +6,7 @@ export function initArmchairForm({ onSubmit, onCancel, onHide } = {}) {
   let editingId = null;
 
   function setFormMode(mode) {
-    qs('#form-title').textContent = mode === 'edit' ? 'Editar poltrona' : 'Cadastrar poltrona';
+    qs('#form-title').textContent = mode === 'edit' ? 'Editar aluguel' : 'Cadastrar aluguel';
     qs('#btn-submit').textContent = mode === 'edit' ? 'Salvar alterações' : 'Cadastrar';
     qs('#btn-cancel').style.display = mode === 'edit' ? 'inline-flex' : 'none';
     qs('#field-add-days').style.display = mode === 'edit' ? 'block' : 'none';
