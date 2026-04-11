@@ -20,6 +20,7 @@ function validateArmchairPayload(payload, { partial = false } = {}) {
 
   const name = asTrimmedString(payload?.name);
   const location = asTrimmedString(payload?.location);
+  const phone_number = asTrimmedString(payload?.phone_number);
   const allocation_date = asTrimmedString(payload?.allocation_date);
   const rental_days = payload?.rental_days !== undefined ? asInt(payload.rental_days) : null;
   const add_days = payload?.add_days !== undefined ? asInt(payload.add_days) : null;
@@ -33,6 +34,10 @@ function validateArmchairPayload(payload, { partial = false } = {}) {
   if (!partial || payload?.location !== undefined) {
     if (!location) errors.location = 'Localização é obrigatória';
     else value.location = location;
+  }
+
+  if (payload?.phone_number !== undefined) {
+    value.phone_number = phone_number;
   }
 
   if (!partial || payload?.allocation_date !== undefined) {

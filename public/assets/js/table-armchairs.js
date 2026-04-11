@@ -1,3 +1,5 @@
+import { formatDisplayDate } from './utils/date.js';
+
 function statusBadge(status) {
   if (status === 'Disponível') return `<span class="badge badge--ok">Disponível</span>`;
   if (status === 'Atrasada') return `<span class="badge badge--warn">Atrasada</span>`;
@@ -41,9 +43,10 @@ export function renderArmchairsTable(rows, { tbodyId, onEdit, onDelete } = {}) {
         <tr data-id="${r.id}">
           <td>${r.name ?? ''}</td>
           <td>${r.location ?? ''}</td>
-          <td>${r.allocation_date ?? ''}</td>
+          <td>${r.phone_number ?? ''}</td>
+          <td>${formatDisplayDate(r.allocation_date ?? '')}</td>
           <td>${r.rental_days ?? ''}</td>
-          <td>${r.return_date ?? ''}</td>
+          <td>${formatDisplayDate(r.return_date ?? '')}</td>
           <td>${statusBadge(r.status)}</td>
           <td class="table__actions">
             <div class="actions">
@@ -51,15 +54,22 @@ export function renderArmchairsTable(rows, { tbodyId, onEdit, onDelete } = {}) {
                 <i class="bi bi-pencil-square text-success"></i>
               </button>
               <button class="btn btn--danger" data-action="delete" type="button">
-                <i class="bi bi-trash3 text-danger"></i>
+                <i class="bi bi-trash3-fill text-danger"></i>
               </button>
+              ${
+                r.phone_number
+                  ? `<button class="btn btn-success btn-sm" type="button" data-action="whatsapp" data-id="${r.id}" aria-label="WhatsApp">
+                      <i class="bi bi-whatsapp"></i>
+                    </button>`
+                  : ''
+              }
             </div>
           </td>
         </tr>
       `,
           )
           .join('')
-      : `<tr><td colspan="7" class="muted">Nenhuma poltrona cadastrada.</td></tr>`;
+      : `<tr><td colspan="8" class="muted">Nenhuma poltrona cadastrada.</td></tr>`;
 
   tbody.querySelectorAll('tr[data-id]').forEach((tr) => {
     tr.addEventListener('click', (e) => {
@@ -74,4 +84,3 @@ export function renderArmchairsTable(rows, { tbodyId, onEdit, onDelete } = {}) {
     });
   });
 }
-

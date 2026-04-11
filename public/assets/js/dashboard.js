@@ -151,6 +151,7 @@ const form = initArmchairForm({
         await createArmchair({
           name: payload.name,
           location: payload.location,
+          phone_number: payload.phone_number,
           allocation_date: payload.allocation_date,
           rental_days: Number(payload.rental_days),
           status: payload.status,
@@ -160,6 +161,7 @@ const form = initArmchairForm({
         const updatePayload = {
           name: payload.name,
           location: payload.location,
+          phone_number: payload.phone_number,
           allocation_date: payload.allocation_date,
           rental_days: Number(payload.rental_days),
           status: payload.status,
@@ -288,4 +290,3 @@ initPagination('list');
 form.clear();
 hideForm();
 await refreshData();
-

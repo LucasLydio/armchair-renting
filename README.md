@@ -26,6 +26,7 @@ Crie uma tabela chamada `armchairs` com colunas sugeridas:
 - `allocation_date` (date, not null)
 - `rental_days` (int4, not null)
 - `return_date` (date, not null)
+- `phone_number` (text, null)
 - `status` (text, not null) — `Disponível` | `Locada` (o backend pode retornar `Atrasada`)
 - `created_at` (timestamptz, default `now()`)
 

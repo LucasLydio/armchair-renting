@@ -2,11 +2,11 @@
   <div class="flex-column" style="justify-content: space-between; margin-bottom: 10px">
     <div>
       <div class="muted" style="font-size: 12px">Listagem</div>
-      <p class="text-white">Poltronas cadastradas</p>
+      <p class="text-white">Poltronas Alugadas</p>
     </div>
     <div class="actions">
       <button class="btn btn-dark" id="btn-open-form-list" type="button">
-        <i class="bi bi-plus-circle"></i> Cadastrar Poltrona
+        <i class="bi bi-plus-circle"></i> Cadastrar Aluguel
       </button>
     </div>
   </div>
@@ -57,6 +57,9 @@
         <div class="modal-body" id="armchair-details-body"></div>
         <div class="modal-footer border-secondary">
           <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Fechar</button>
+          <button type="button" class="btn btn-success d-md-none" id="details-whatsapp" style="display: none">
+            <i class="bi bi-whatsapp"></i>
+          </button>
           <button type="button" class="btn btn-success" id="details-edit">
             <i class="bi bi-pencil-square"></i> Editar
           </button>
@@ -68,4 +71,3 @@
     </div>
   </div>
 </div>
-

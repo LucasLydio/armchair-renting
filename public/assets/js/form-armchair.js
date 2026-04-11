@@ -1,4 +1,5 @@
 import { qs } from './utils/dom.js';
+import { formatDisplayDate } from './utils/date.js';
 import { computeReturnDate, validateArmchairForm } from './validators.js';
 
 export function initArmchairForm({ onSubmit, onCancel, onHide } = {}) {
@@ -16,7 +17,7 @@ export function initArmchairForm({ onSubmit, onCancel, onHide } = {}) {
     const allocation_date = qs('#allocation_date').value;
     const rental_days = qs('#rental_days').value;
     const preview = computeReturnDate(allocation_date, rental_days);
-    qs('#return_date_preview').textContent = preview || '—';
+    qs('#return_date_preview').textContent = preview ? formatDisplayDate(preview) : '—';
   }
 
   function clear() {
@@ -24,6 +25,7 @@ export function initArmchairForm({ onSubmit, onCancel, onHide } = {}) {
     setFormMode('create');
     qs('#name').value = '';
     qs('#location').value = '';
+    qs('#phone_number').value = '';
     qs('#allocation_date').value = '';
     qs('#rental_days').value = '';
     qs('#add_days').value = '';
@@ -36,17 +38,19 @@ export function initArmchairForm({ onSubmit, onCancel, onHide } = {}) {
     setFormMode('edit');
     qs('#name').value = row.name || '';
     qs('#location').value = row.location || '';
+    qs('#phone_number').value = row.phone_number || '';
     qs('#allocation_date').value = row.allocation_date || '';
     qs('#rental_days').value = row.rental_days ?? '';
     qs('#add_days').value = '';
     qs('#status').value = row.status === 'Atrasada' ? 'Locada' : row.status;
-    qs('#return_date_preview').textContent = row.return_date || '—';
+    qs('#return_date_preview').textContent = row.return_date ? formatDisplayDate(row.return_date) : '—';
   }
 
   function getPayload() {
     const payload = {
       name: qs('#name').value,
       location: qs('#location').value,
+      phone_number: qs('#phone_number').value,
       allocation_date: qs('#allocation_date').value,
       rental_days: qs('#rental_days').value,
       status: qs('#status').value,

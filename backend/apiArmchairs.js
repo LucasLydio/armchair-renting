@@ -35,9 +35,9 @@ async function getArmchairById(armchair_id) {
   return withDerivedStatus(data);
 }
 
-async function createArmchair({ name, location, allocation_date, rental_days, status }) {
+async function createArmchair({ name, location, phone_number, allocation_date, rental_days, status }) {
   const return_date = addDays(allocation_date, rental_days);
-  const payload = { name, location, allocation_date, rental_days, return_date, status };
+  const payload = { name, location, phone_number, allocation_date, rental_days, return_date, status };
 
   const { data, error } = await supabase.from(TABLE).insert([payload]).select().single();
   if (error) throw error;
@@ -82,4 +82,3 @@ module.exports = {
   updateArmchair,
   deleteArmchair,
 };
-

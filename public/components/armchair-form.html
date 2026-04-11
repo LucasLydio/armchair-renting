@@ -6,18 +6,44 @@
     </div>
     <div class="actions">
       <button class="btn btn-dark" id="btn-hide-form" type="button">Fechar</button>
-      <button class="btn btn-outline-dark text-white" id="btn-cancel" type="button" style="display: none">Cancelar</button>
+      <button
+        class="btn btn-outline-dark text-white"
+        id="btn-cancel"
+        type="button"
+        style="display: none"
+      >
+        Cancelar
+      </button>
     </div>
   </div>
 
   <div class="field">
-    <label for="name">Nome da poltrona</label>
+    <label for="name">Nome</label>
     <input class="input" id="name" name="name" placeholder="Ex: Poltrona A" required />
   </div>
 
   <div class="field">
     <label for="location">Localização (endereço completo)</label>
-    <textarea class="input" id="location" name="location" rows="3" placeholder="Rua, número, bairro, cidade" required></textarea>
+    <textarea
+      class="input"
+      id="location"
+      name="location"
+      rows="3"
+      placeholder="Rua, número, bairro, cidade"
+      required
+    ></textarea>
+  </div>
+
+  <div class="field">
+    <label for="phone_number">Telefone do cliente (opcional)</label>
+    <input
+      class="input"
+      id="phone_number"
+      name="phone_number"
+      inputmode="tel"
+      maxlength="15"
+      placeholder="Ex: (62) 99999-9999"
+    />
   </div>
 
   <div class="row">
@@ -54,4 +80,3 @@
 
   <button class="btn btn-dark" id="btn-submit" type="submit">Cadastrar</button>
 </form>
-

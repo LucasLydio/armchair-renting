@@ -10,9 +10,15 @@ export function toISODate(date) {
   return new Date(date).toISOString().slice(0, 10);
 }
 
+export function formatDisplayDate(isoDate) {
+  if (typeof isoDate !== 'string') return '';
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(isoDate)) return isoDate;
+  const [y, m, d] = isoDate.split('-');
+  return `${d}-${m}-${y}`;
+}
+
 export function addDays(isoDate, days) {
   const d = new Date(`${isoDate}T00:00:00Z`);
   d.setUTCDate(d.getUTCDate() + Number(days));
   return toISODate(d);
 }
-
