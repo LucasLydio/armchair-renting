@@ -1,6 +1,51 @@
 import { formatDisplayDate } from './utils/date.js';
 import { escapeHtml } from './utils/dom.js';
 
+function normalizeWhatsAppNumber(raw) {
+  const digits = String(raw ?? '').replace(/\D/g, '');
+  if (!digits) return '';
+
+  // Default to Brazil if the user typed a local number (10/11 digits).
+  if (digits.length === 10 || digits.length === 11) return `55${digits}`;
+
+  return digits;
+}
+
+function buildWhatsAppText(row) {
+  const parts = [''];
+  if (row?.name) {
+    parts.push(`Ola, ${row.name}! Tudo bem?`);
+    parts.push('Sobre o aluguel da poltrona.');
+  }
+  if (row?.return_date) parts.push(`Devolucao prevista: ${formatDisplayDate(row.return_date)}.`);
+  if (row?.location) parts.push(`Localizacao: ${row.location}.`);
+  if (row?.status) parts.push(`Situacao: ${row.status}.`);
+  return parts.join('\n');
+}
+
+function openWhatsAppMobile({ waNumber, waText }) {
+  const phone = normalizeWhatsAppNumber(waNumber);
+  if (!phone) {
+    alert('Telefone invalido.');
+    return;
+  }
+
+  const text = encodeURIComponent(waText || '');
+  const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+  const deepLink = `whatsapp://send?phone=${phone}&text=${text}`;
+  const webLink = `https://wa.me/${phone}?text=${text}`;
+
+  if (!isMobile) {
+    window.open(webLink, '_blank', 'noopener');
+    return;
+  }
+
+  window.location.href = deepLink;
+  setTimeout(() => {
+    window.location.href = webLink;
+  }, 1400);
+}
+
 function statusBadge(status) {
   if (status === 'Disponível') return `<span class="badge badge--ok">Disponível</span>`;
   if (status === 'Atrasada') return `<span class="badge badge--warn">Atrasada</span>`;
@@ -87,6 +132,9 @@ export function renderArmchairsTable(rows, { tbodyId, onEdit, onDelete } = {}) {
       if (!row) return;
       if (action === 'edit') onEdit?.(row);
       if (action === 'delete') onDelete?.(row);
+      if (action === 'whatsapp') {
+        openWhatsAppMobile({ waNumber: row.phone_number, waText: buildWhatsAppText(row) });
+      }
     });
   });
 }
