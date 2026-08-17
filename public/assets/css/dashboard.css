@@ -73,6 +73,10 @@
   white-space: nowrap;
 }
 
+.table__row--attention td {
+  background: rgba(239, 68, 68, 0.08) !important;
+}
+
 .toolbar {
   display: flex;
   gap: 10px;
@@ -117,6 +121,25 @@
   display: none !important;
 }
 
+.armchair-list__item {
+  gap: 10px;
+}
+
+.armchair-list__item--attention {
+  background: rgba(239, 68, 68, 0.08) !important;
+}
+
+.armchair-list__main {
+  min-width: 0;
+  flex: 1;
+}
+
+.armchair-list__meta {
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 2px;
+}
+
 /* Desktop: table visible, list hidden */
 #list-root {
   display: none;
@@ -131,4 +154,3 @@
     display: block;
   }
 }
-

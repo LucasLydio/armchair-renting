@@ -1,9 +1,15 @@
 import { formatDisplayDate } from './utils/date.js';
+import { escapeHtml } from './utils/dom.js';
 
 function statusBadge(status) {
   if (status === 'Disponível') return `<span class="badge badge--ok">Disponível</span>`;
   if (status === 'Atrasada') return `<span class="badge badge--warn">Atrasada</span>`;
   return `<span class="badge badge--muted">Locada</span>`;
+}
+
+function statusBadges(row) {
+  if (row.is_most_overdue) return '<div class="status-stack"><span class="badge badge--danger">Mais atrasada</span></div>';
+  return `<div class="status-stack">${statusBadge(row.status)}</div>`;
 }
 
 export function getSearchName(inputId) {
@@ -40,14 +46,14 @@ export function renderArmchairsTable(rows, { tbodyId, onEdit, onDelete } = {}) {
       ? rows
           .map(
             (r) => `
-        <tr data-id="${r.id}">
-          <td>${r.name ?? ''}</td>
-          <td>${r.location ?? ''}</td>
-          <td>${r.phone_number ?? ''}</td>
+        <tr data-id="${r.id}" class="${r.status === 'Atrasada' ? 'table__row--attention' : ''}">
+          <td>${escapeHtml(r.name ?? '')}</td>
+          <td>${escapeHtml(r.location ?? '')}</td>
+          <td>${escapeHtml(r.phone_number ?? '')}</td>
           <td>${formatDisplayDate(r.allocation_date ?? '')}</td>
-          <td>${r.rental_days ?? ''}</td>
+          <td>${escapeHtml(r.rental_days ?? '')}</td>
           <td>${formatDisplayDate(r.return_date ?? '')}</td>
-          <td>${statusBadge(r.status)}</td>
+          <td>${statusBadges(r)}</td>
           <td class="table__actions">
             <div class="actions">
               <button class="btn btn--ghost" data-action="edit" type="button">

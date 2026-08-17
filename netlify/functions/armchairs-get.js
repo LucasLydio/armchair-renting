@@ -20,11 +20,10 @@ exports.handler = async function (event) {
     const limitInt = parseInt(limit, 10) || 50;
     if (pageInt <= 0 || limitInt <= 0) return badRequest(event, 'Parâmetros inválidos');
 
-    const { data, count } = await getAllArmchairs({ page: pageInt, limit: limitInt, name });
-    return json(event, 200, { data, count });
+    const { data, count, attention } = await getAllArmchairs({ page: pageInt, limit: limitInt, name });
+    return json(event, 200, { data, count, attention });
   } catch (err) {
     if (err?.statusCode === 401) return json(event, 401, { error: 'Unauthorized' });
     return serverError(event, err);
   }
 };
-

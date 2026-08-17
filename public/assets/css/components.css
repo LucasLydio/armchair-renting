@@ -108,8 +108,70 @@
   background: rgba(245, 158, 11, 0.12);
 }
 
+.badge--danger {
+  border-color: rgba(239, 68, 68, 0.65);
+  background: rgba(239, 68, 68, 0.18);
+}
+
 .badge--muted {
   border-color: rgba(232, 238, 252, 0.18);
   background: rgba(232, 238, 252, 0.06);
 }
 
+.status-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+
+.attention-return {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 12px;
+  padding: 10px 12px;
+  border: 1px solid rgba(239, 68, 68, 0.5);
+  border-radius: 8px;
+  background: rgba(239, 68, 68, 0.14);
+}
+
+.attention-return[hidden] {
+  display: none;
+}
+
+.attention-return__label,
+.attention-return__meta,
+.attention-return__date small {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.attention-return__title,
+.attention-return__date span {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.attention-return__meta {
+  display: block;
+  margin-top: 2px;
+}
+
+.attention-return__date {
+  display: grid;
+  justify-items: end;
+  white-space: nowrap;
+}
+
+@media (max-width: 520px) {
+  .attention-return {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .attention-return__date {
+    justify-items: start;
+  }
+}

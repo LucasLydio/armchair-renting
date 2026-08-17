@@ -1,7 +1,8 @@
 import { loadAllComponents, showAlert } from './components.js';
 import { requireAuth, logout } from './auth.js';
 import { listArmchairs, createArmchair, updateArmchair, deleteArmchair } from './armchairs.js';
-import { qs } from './utils/dom.js';
+import { escapeHtml, qs } from './utils/dom.js';
+import { formatDisplayDate } from './utils/date.js';
 import { initArmchairForm } from './form-armchair.js';
 import { initSearchToolbar, renderArmchairsTable, getSearchName, setSearchName } from './table-armchairs.js';
 import { initArmchairDetailsModal, renderArmchairsList } from './armchair-list.js';
@@ -79,13 +80,61 @@ function updatePaginationUI(prefix) {
   info.textContent = `Mostrando ${from}–${to} de ${totalCount} • Página ${currentPage} de ${pages}`;
 }
 
+function getDaysLate(returnDate) {
+  if (!returnDate) return 0;
+  const due = new Date(`${returnDate}T00:00:00Z`);
+  const today = new Date(`${new Date().toISOString().slice(0, 10)}T00:00:00Z`);
+  return Math.max(0, Math.floor((today - due) / 86400000));
+}
+
+function renderAttentionTarget(targetId, attention) {
+  const el = document.getElementById(targetId);
+  if (!el) return;
+
+  if (!attention) {
+    el.hidden = true;
+    el.innerHTML = '';
+    return;
+  }
+
+  const daysLate = getDaysLate(attention.return_date);
+  const lateText = daysLate === 1 ? '1 dia em atraso' : `${daysLate} dias em atraso`;
+  const location = attention.location
+    ? `<span class="attention-return__meta">${escapeHtml(attention.location)}</span>`
+    : '';
+
+  el.hidden = false;
+  el.innerHTML = `
+    <div>
+      <div class="attention-return__label">Atencao principal</div>
+      <div class="attention-return__title">${escapeHtml(attention.name ?? '')}</div>
+      ${location}
+    </div>
+    <div class="attention-return__date">
+      <span>${escapeHtml(formatDisplayDate(attention.return_date ?? ''))}</span>
+      <small>${escapeHtml(lateText)}</small>
+    </div>
+  `;
+}
+
+function renderAttention(attention) {
+  renderAttentionTarget('attention-table', attention);
+  renderAttentionTarget('attention-list', attention);
+}
+
 async function refreshData({ name } = {}) {
   const q = name ?? getSearchAny();
   const res = await listArmchairs({ name: q, page: currentPage, limit: pageSize });
-  const rows = res?.data || [];
+  const attention = res?.attention || null;
+  const attentionId = attention?.id;
+  const rows = (res?.data || []).map((row) => ({
+    ...row,
+    is_most_overdue: Boolean(attentionId && row.id === attentionId),
+  }));
   totalCount = Number(res?.count || 0);
 
   clampPage();
+  renderAttention(attention);
 
   renderArmchairsTable(rows, {
     tbodyId: 'armchairs-tbody-table',

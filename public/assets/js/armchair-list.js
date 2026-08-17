@@ -129,6 +129,11 @@ export function initArmchairDetailsModal({ onEdit, onDelete } = {}) {
   };
 }
 
+function statusBadges(row) {
+  if (row.is_most_overdue) return '<div class="status-stack"><span class="badge badge--danger">Mais atrasada</span></div>';
+  return `<div class="status-stack">${statusBadge(row.status)}</div>`;
+}
+
 export function renderArmchairsList(rows, { onActions } = {}) {
   const root = document.getElementById('armchairs-list');
   if (!root) return;
@@ -141,9 +146,12 @@ export function renderArmchairsList(rows, { onActions } = {}) {
   root.innerHTML = rows
     .map(
       (r) => `
-        <div class="bg-transparent d-flex justify-content-between align-items-center pb-2 my-2 border-bottom border-1">
-          <div class="text-truncate text-white-50" style="max-width: 50%"><strong>${escapeHtml(r.name ?? '')}</strong></div> 
-          <div class="text-truncate text-white-50" style="max-width: 70%"><strong>${statusBadge(r.status ?? '')}</strong></div>
+        <div class="armchair-list__item bg-transparent d-flex justify-content-between align-items-center pb-2 my-2 border-bottom border-1 ${r.status === 'Atrasada' ? 'armchair-list__item--attention' : ''}">
+          <div class="armchair-list__main">
+            <div class="text-truncate text-white-50"><strong>${escapeHtml(r.name ?? '')}</strong></div>
+            <div class="armchair-list__meta">Devolucao: ${escapeHtml(formatDisplayDate(r.return_date ?? ''))}</div>
+          </div>
+          <div class="text-truncate text-white-50">${statusBadges(r)}</div>
           <div class="d-flex align-items-center gap-2">
             ${
               r.phone_number
@@ -177,4 +185,3 @@ export function renderArmchairsList(rows, { onActions } = {}) {
     });
   });
 }
-

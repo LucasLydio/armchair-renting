@@ -12,21 +12,49 @@ function withDerivedStatus(armchair) {
   return armchair;
 }
 
+function applyNameFilter(query, name) {
+  if (!name) return query;
+  return query.ilike('name', `%${name}%`);
+}
+
 async function getAllArmchairs({ page = 1, limit = 50, name } = {}) {
   const from = (page - 1) * limit;
   const to = from + limit - 1;
+  const today = todayISO();
 
-  let query = supabase
+  let listQuery = supabase
     .from(TABLE)
     .select('*', { count: 'exact' })
+    .order('status', { ascending: false })
+    .order('return_date', { ascending: true, nullsFirst: false })
     .order('created_at', { ascending: false })
     .range(from, to);
 
-  if (name) query = query.ilike('name', `%${name}%`);
+  let attentionQuery = supabase
+    .from(TABLE)
+    .select('*')
+    .eq('status', 'Locada')
+    .lt('return_date', today)
+    .order('return_date', { ascending: true, nullsFirst: false })
+    .order('created_at', { ascending: true })
+    .limit(1);
 
-  const { data, error, count } = await query;
+  listQuery = applyNameFilter(listQuery, name);
+  attentionQuery = applyNameFilter(attentionQuery, name);
+
+  const [{ data, error, count }, { data: attentionData, error: attentionError }] = await Promise.all([
+    listQuery,
+    attentionQuery,
+  ]);
+
   if (error) throw error;
-  return { data: (data || []).map(withDerivedStatus), count: count || 0 };
+  if (attentionError) throw attentionError;
+
+  return {
+    data: (data || []).map(withDerivedStatus),
+    count: count || 0,
+    attention: withDerivedStatus((attentionData || [])[0] || null),
+  };
 }
 
 async function getArmchairById(armchair_id) {
